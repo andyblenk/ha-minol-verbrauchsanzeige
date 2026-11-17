@@ -26,13 +26,16 @@ class MinolHistory:
         updated = deepcopy(self.data)
         current_meters = {}
         available_readings = {}
-        for month in sorted(snapshot.monthly_results):
-            month_snapshot = replace(
-                snapshot, period=MonthRange(month, month), results=snapshot.monthly_results[month])
-            fetched = discover_meters(month_snapshot)
+        monthly_meters = {
+            month: discover_meters(replace(snapshot, period=MonthRange(month, month), results=results))
+            for month, results in sorted(snapshot.monthly_results.items())
+        }
+        observed_ids = set().union(*monthly_meters.values())
+        for month, fetched in monthly_meters.items():
             month_key = f"{month[:4]}-{month[4:]}"
             for identifier, record in updated["meters"].items():
-                if identifier not in fetched and month_key in record["months"]:
+                # Do not erase history for a device whose view was not read at all.
+                if identifier in observed_ids and identifier not in fetched and month_key in record["months"]:
                     record["months"][month_key] = dict.fromkeys(CONSUMPTION_FIELDS, 0)
             for identifier, meter in fetched.items():
                 record = updated["meters"].setdefault(identifier, {"months": {}})

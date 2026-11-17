@@ -1,7 +1,7 @@
 {
   "domain": "minol_portal",
   "name": "Minol Verbrauchsanzeige",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "documentation": "https://github.com/andyblenk/ha-minol-verbrauchsanzeige",
   "codeowners": [
     "@andyblenk"

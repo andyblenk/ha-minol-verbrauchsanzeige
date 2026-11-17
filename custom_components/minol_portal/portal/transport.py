@@ -7,7 +7,7 @@ from urllib.parse import urljoin
 import aiohttp
 from yarl import URL
 
-from .errors import ConnectionError, ProtocolError
+from .errors import ConnectionError, ProtocolError, raise_for_temporary_status
 
 
 MAX_RESPONSE_BYTES = 16 * 1024 * 1024
@@ -68,6 +68,7 @@ class PortalTransport:
                     method, URL(url, encoded=True), allow_redirects=False,
                     timeout=aiohttp.ClientTimeout(total=90), **kwargs,
                 ) as response:
+                    raise_for_temporary_status(response.status)
                     chunks = []
                     size = 0
                     async for chunk in response.content.iter_chunked(65536):

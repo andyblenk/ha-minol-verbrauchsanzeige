@@ -23,3 +23,10 @@ class ConnectionError(PortalError):
 
 class SelectionError(PortalError):
     code = "invalid_selection"
+
+
+def raise_for_temporary_status(status: int) -> None:
+    """Keep service failures recoverable instead of requesting new credentials."""
+    if status in {408, 429} or 500 <= status < 600:
+        raise ConnectionError(
+            f"Der Minol-Dienst meldet einen vorübergehenden Fehler (Status {status}).")

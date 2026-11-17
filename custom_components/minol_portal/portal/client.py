@@ -31,12 +31,14 @@ class PortalClient:
         if body is not None:
             kwargs["json"] = body
         reply = await self.transport.request(method, self.transport.endpoints.portal + path, **kwargs)
-        if reply.status in {301, 302, 303, 401} or reply.text.lstrip().lower().startswith(("<!doctype html", "<html")):
+        if reply.status in {301, 302, 303, 401}:
             raise SessionExpired("Die Portal-Sitzung ist abgelaufen oder eine erneute Anmeldung wird verlangt.")
         if reply.status == 403:
             raise SelectionError("Das Portal hat diesen lesenden Datenabruf nicht freigegeben.")
         if reply.status != 200:
             raise ProtocolError(f"Der Portal-Datenabruf meldet HTTP {reply.status}.")
+        if reply.text.lstrip().lower().startswith(("<!doctype html", "<html")):
+            raise SessionExpired("Die Portal-Sitzung ist abgelaufen oder eine erneute Anmeldung wird verlangt.")
         try:
             return json.loads(reply.text)
         except ValueError:
@@ -79,28 +81,37 @@ class PortalClient:
         notify("Freigegebene Ansichten und Zeiträume lesen")
         layer = await self._json("POST", EM_PATH + "/getLayerInfo", selection)
         if (not isinstance(layer, dict) or not isinstance(layer.get("views"), list)
-                or any(not isinstance(view, dict) for view in layer["views"])):
+                or any(not isinstance(view, dict)
+                       or not isinstance(view.get("key"), str) or not view["key"]
+                       for view in layer["views"])):
             raise ProtocolError("Das Portal liefert keine erwartete Ansichtsliste.")
-        scales = [s.get("key") if isinstance(s, dict) else s for s in layer.get("scales", [])]
+        raw_scales = layer.get("scales", [])
+        if not isinstance(raw_scales, list):
+            raise ProtocolError("Das Portal liefert keine erwartete Liste von Zeitrastern.")
+        scales = [scale.get("key") if isinstance(scale, dict) else scale for scale in raw_scales]
+        if any(not isinstance(scale, str) or not scale for scale in scales):
+            raise ProtocolError("Ein Portal-Zeitraster besitzt keinen gültigen Schlüssel.")
         if scales and "CALMONTH" not in scales:
             raise SelectionError("Für diese Nutzereinheit ist keine Monatsauswertung freigegeben.")
-        views = [v for v in layer["views"] if v.get("status") != "U" and v.get("key") != "tableau"]
+        views = [view for view in layer["views"]
+                 if view.get("status") != "U" and view["key"] != "tableau"]
+        by_key = {view["key"]: view for view in views}
+        meter_views = []
+        for candidates in METER_VIEW_FAMILIES.values():
+            view = next((by_key[key] for key in candidates if key in by_key), None)
+            if view is not None:
+                meter_views.append(view)
+        if not meter_views:
+            # No readable views is not a successful set of empty monthly tables.
+            raise ProtocolError("Das Portal bietet derzeit keine unterstützte Zähleransicht an.")
         monthly_results = {}
         if monthly:
-            by_key = {view.get("key"): view for view in views}
-            meter_views = []
-            for candidates in METER_VIEW_FAMILIES.values():
-                view = next((by_key[key] for key in candidates if key in by_key), None)
-                if view is not None:
-                    meter_views.append(view)
             for month in period.months():
                 month_selection = MonthRange(month, month).selection(selected["userNumber"])
                 monthly_results[month] = await self._read_views(month_selection, meter_views, notify)
             results = monthly_results[period.end]
         else:
             results = await self._read_views(selection, views, notify)
-        if not views:
-            warnings.append("Das Konto hat derzeit keine nutzbare native Verbrauchsansicht freigegeben.")
         return PortalSnapshot(account, tenants, selected, layer, period, results, warnings,
                               monthly_results=monthly_results)
 
@@ -117,5 +128,9 @@ class PortalClient:
             request = {**selection, "dlgKey": key, "consType": view.get("consType") or "HEIZUNG",
                        "valuesInKWH": key.startswith("100"), "refObject": reference}
             raw = await self._json("POST", EM_PATH + "/readData", request)
+            if any(key in candidates for candidates in METER_VIEW_FAMILIES.values()) and (
+                not isinstance(raw, dict) or "table" not in raw
+            ):
+                raise ProtocolError("Die Zählerantwort enthält keine Monatstabelle.")
             results.append(ConsumptionData.parse(key, raw))
         return results

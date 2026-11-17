@@ -11,7 +11,7 @@ from urllib.parse import urlencode, urljoin, urlsplit
 
 from yarl import URL
 
-from .errors import AuthenticationError, ProtocolError
+from .errors import AuthenticationError, ProtocolError, raise_for_temporary_status
 from .models import Credentials
 from .transport import PortalTransport, origin_of
 
@@ -111,12 +111,21 @@ class PortalAuthenticator:
             )
             if 300 <= reply.status < 400:
                 raise ProtocolError("Die Credential-Antwort wurde unerwartet weitergeleitet; es wurden keine Daten weitergesendet.")
+            if reply.status not in {200, 400, 401, 403}:
+                raise ProtocolError(f"Der Identitätsdienst meldet HTTP {reply.status}.")
             try:
                 result = json.loads(reply.text) if reply.text.strip() else {"status": "200"}
             except ValueError:
                 raise ProtocolError("Die Anmeldeantwort ist kein erwartetes JSON.") from None
-            if reply.status != 200 or not isinstance(result, dict) or str(result.get("status")) != "200":
-                message = str(result.get("message", "")) if isinstance(result, dict) else ""
+            if not isinstance(result, dict):
+                raise ProtocolError("Die Anmeldeantwort enthält keinen gültigen Status.")
+            try:
+                status = int(result["status"])
+            except (KeyError, TypeError, ValueError):
+                raise ProtocolError("Die Anmeldeantwort enthält keinen gültigen Status.") from None
+            raise_for_temporary_status(status)
+            if reply.status != 200 or status != 200:
+                message = str(result.get("message", ""))
                 if "account could not be found" in message.lower():
                     raise AuthenticationError("Der Identitätsdienst findet die bereitgestellte Anmeldekennung nicht. Bitte die E-Mail-Adresse beziehungsweise Anmeldekennung in der Einrichtung prüfen.")
                 raise AuthenticationError("Die bereitgestellte Anmeldung wurde abgewiesen. Zugangsdaten oder erforderliche Benutzerinteraktion prüfen.")
