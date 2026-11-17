@@ -10,7 +10,9 @@ Die Daten stammen aus dem Minol-Portal. Ihre Aktualität richtet sich nach der V
 
 ## Entwicklung unterstützen
 
-Wenn dir die Integration gefällt oder sie dir im Alltag hilft, kannst du die Weiterentwicklung mit einem [☕ Buy Me a Coffee](https://buymeacoffee.com/andyblenk) unterstützen. Vielen Dank!
+Wenn dir die Integration gefällt oder sie dir im Alltag hilft, freue ich mich über deine Unterstützung.
+
+[☕ Buy Me a Coffee](https://buymeacoffee.com/andyblenk) – vielen Dank!
 
 ## Funktionen
 
@@ -88,27 +90,18 @@ Das Gerät **Stammdaten** zeigt die verfügbaren Benutzer- und Wohnungsangaben:
 
 Es werden nur Felder angelegt, die das Portal liefert.
 
-## Monatsdaten und Speicherung
+## Daten und Sicherung
 
-Bei jedem Abruf liest die Integration **den aktuellen Kalendermonat und die elf vorherigen Monate** einzeln ein. Bereits gespeicherte Monate werden aktualisiert. Beide Verbrauchssummen werden anschließend aus **allen gespeicherten Monaten** neu gebildet – wiederholte Abrufe zählen einen Monat nicht doppelt.
+Die Integration aktualisiert bei jedem Abruf die letzten zwölf Monate und behält ältere Monate dauerhaft. Neue Werte und Korrekturen werden automatisch in die Verbrauchssummen übernommen. Die gelieferten Zahlen bleiben beim Speichern ungerundet; beide Summensensoren zeigen zwei Nachkommastellen.
 
-Ältere Monate bleiben auch dann erhalten, wenn sie aus dem Abruffenster fallen. Die gelieferten Nachkommastellen werden ohne Rundung gespeichert; erst die ausgegebenen Summen werden auf zwei Nachkommastellen gerundet.
+**Sichere deine vollständige Home-Assistant-Konfiguration**, damit die gespeicherte Monatshistorie bei einem Umzug oder einer Neuinstallation erhalten bleibt.
 
-Die Monatsablage liegt je eingerichteter Wohnung unter folgendem Pfad im Home-Assistant-Konfigurationsverzeichnis:
+Wichtig für die Auswertung:
 
-```text
-.storage/minol_portal.<Einrichtungs-ID>
-```
-
-Sie bleibt bei Neustarts und unabhängig von der Recorder-Aufbewahrungsdauer erhalten. **Sichere die Monatsablage zusammen mit deiner Home-Assistant-Konfiguration.** Nach dem Löschen der Datei lassen sich ältere Monate außerhalb des Abruffensters nicht automatisch wiederherstellen.
-
-### Datenstand und Grenzen
-
-- Beim ersten Abruf werden nur die letzten zwölf Monate eingelesen. Eine ältere Historie wird nicht automatisch nachgeladen.
-- Korrekturen werden für die zwölf erneut abgefragten Monate übernommen. Änderungen außerhalb dieses Fensters werden nicht automatisch erkannt.
-- Fehlende Monatswerte tragen null zur Summe bei. Später gelieferte Werte ersetzen sie beim nächsten Abruf. Auch eine zuvor gespeicherte Gerätezeile, die aus einem erfolgreich erneut abgefragten Monat verschwindet, trägt für diesen Monat anschließend null bei.
-- Ein fehlgeschlagener Abruf speichert keinen teilweise aktualisierten Monatsbestand. Geräte, die in keiner der abgefragten Monatstabellen mehr vorkommen, werden nicht verfügbar; ihre gespeicherten Verbrauchsmonate bleiben erhalten.
-- Beide Summensensoren verwenden die HA-Statistikklasse `total`, damit Korrekturen möglich bleiben. **HA erfasst Änderungen zum Empfangszeitpunkt.** Es gibt keinen rückwirkenden Monatsstatistikimport; verspätet veröffentlichte Werte werden nicht automatisch ihrem ursprünglichen Verbrauchsmonat zugeordnet.
+- Beim ersten Abruf beginnt die Historie mit den letzten zwölf Monaten. Ältere Daten werden nicht automatisch nachgeladen.
+- Korrekturen werden innerhalb des Zwölfmonatsfensters übernommen. Änderungen an älteren Monaten werden nicht automatisch erkannt.
+- Fehlende Monatswerte tragen zunächst null zur Summe bei und werden bei späteren Abrufen aktualisiert. Nicht lesbare oder fehlerhafte Portalansichten überschreiben keine historischen Werte.
+- **HA erfasst Änderungen zum Empfangszeitpunkt.** Verspätet veröffentlichte Werte werden nicht rückwirkend ihrem ursprünglichen Verbrauchsmonat zugeordnet.
 
 ## Einstellungen
 
@@ -117,6 +110,8 @@ Unter **Einstellungen → Geräte & Dienste → Minol Verbrauchsanzeige → Konf
 | Einstellung | Standard | Bereich |
 |---|---|---|
 | Abrufintervall | 6 Stunden | 1–168 Stunden |
+
+Beim Neuladen bleibt der letzte verfügbare Stand sichtbar. Neue Daten werden im Hintergrund abgerufen; der Abrufzeitpunkt der Geräte ändert sich erst nach erfolgreicher Aktualisierung.
 
 ## Sprachen
 
@@ -132,8 +127,9 @@ Home Assistant neu starten und die Browserseite neu laden. Danach unter **Einste
 **Die Anmeldung schlägt fehl.**  
 Prüfe zunächst, ob die Anmeldung mit denselben Zugangsdaten im Minol-Portal funktioniert und Verbrauchsdaten freigeschaltet sind. Bei mehreren Wohnungen ist die passende Nutzereinheiten-ID erforderlich. Verlangt HA eine erneute Anmeldung, verwende den dafür angezeigten Einrichtungsdialog.
 
-**Der aktuelle Monat zeigt noch keinen Verbrauch.**  
-Minol hat möglicherweise noch keine Werte veröffentlicht. Maßgeblich sind der letzte Berichtsmonat und die Datenqualität. Das Portal-Kennzeichen `F` weist auf fehlende Verbrauchswerte hin.
+**Warum ändert sich der Gesamtverbrauch noch nicht?**
+
+Die Summen ändern sich, sobald Minol neue oder korrigierte Monatswerte veröffentlicht. Der letzte Berichtsmonat zeigt, bis zu welchem Monat das Portal Berichte anbietet. Weitere Qualitätsangaben stehen in den Sensorattributen.
 
 **Eine Verbrauchssumme hat sich nachträglich geändert.**  
 Minol kann bereits veröffentlichte Monate korrigieren. Die Integration übernimmt diese Änderungen innerhalb des Abruffensters; deshalb können sich die Summen auch verringern.
@@ -145,3 +141,7 @@ Fehlerberichte und Verbesserungsvorschläge sind unter [GitHub Issues](https://g
 Bitte keine Passwörter, Tokens oder persönlichen Konto-, Adress- und Verbrauchsdaten veröffentlichen.
 
 Der Integrationscode liegt unter `custom_components/minol_portal/`, der API-Client im Unterordner `portal/`. Übersetzungsbeiträge sind ebenfalls willkommen: `strings.json` und `translations/en.json` enthalten die englischen Basistexte, `translations/de.json` die deutsche Übersetzung.
+
+## Lizenz
+
+Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).
