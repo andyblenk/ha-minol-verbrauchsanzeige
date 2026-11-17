@@ -4,7 +4,7 @@
     "step": {
       "user": {
         "title": "Minol-Portal verbinden",
-        "description": "Mit den Zugangsdaten des Minol-Portals anmelden. Bei genau einer Wohnung die Nutzereinheiten-ID leer lassen. Bei mehreren Wohnungen die API-userNumber angeben; sie ist nicht die Kundennummer oder die angezeigte Einheitsnummer. Die Anmeldung kann etwas dauern.",
+        "description": "Mit den Zugangsdaten des Minol-Portals anmelden. Bei genau einer Wohnung die Nutzereinheiten-ID leer lassen. Bei mehreren Wohnungen die Nutzereinheiten-ID angeben. Die Anmeldung kann etwas dauern.",
         "data": {
           "email": "E-Mail / Anmeldekennung",
           "password": "Passwort",
@@ -15,7 +15,7 @@
     "error": {
       "invalid_auth": "Die Anmeldung wurde abgewiesen.",
       "cannot_connect": "Die Portaldaten konnten nicht geladen oder eindeutig zugeordnet werden.",
-      "invalid_selection": "Keine eindeutige Nutzereinheit. Bitte die API-userNumber angeben; sie ist nicht unbedingt die Kundennummer oder die angezeigte Einheitsnummer."
+      "invalid_selection": "Keine eindeutige Nutzereinheit. Bitte die Nutzereinheiten-ID angeben."
     },
     "abort": {
       "already_configured": "Diese Nutzereinheit ist bereits eingerichtet.",

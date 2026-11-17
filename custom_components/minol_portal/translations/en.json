@@ -4,7 +4,7 @@
     "step": {
       "user": {
         "title": "Connect to the Minol portal",
-        "description": "Enter your Minol portal credentials. Leave the dwelling ID blank if your account contains only one dwelling. For multiple dwellings, enter the portal userNumber, not the customer number or the displayed unit number. Signing in may take a little while.",
+        "description": "Enter your Minol portal credentials. Leave the dwelling ID blank if your account contains only one dwelling. For multiple dwellings, enter the dwelling ID. Signing in may take a little while.",
         "data": {
           "email": "Email / login",
           "password": "Password",
@@ -15,7 +15,7 @@
     "error": {
       "invalid_auth": "The credentials were rejected.",
       "cannot_connect": "The portal data could not be loaded or assigned unambiguously.",
-      "invalid_selection": "The dwelling could not be selected unambiguously. Enter the portal userNumber; this may differ from the customer number and displayed unit number."
+      "invalid_selection": "The dwelling could not be selected unambiguously. Enter the dwelling ID."
     },
     "abort": {
       "already_configured": "This dwelling is already configured.",
