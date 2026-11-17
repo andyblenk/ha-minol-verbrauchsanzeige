@@ -14,6 +14,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import slugify
 
 from .const import DOMAIN
 from .model import latest_reporting_month, master_data
@@ -92,9 +93,15 @@ class MinolMeterSensor(CoordinatorEntity, SensorEntity):
         self.entity_description = description
         self.identifier = meter.identifier
         self._attr_unique_id = f"{meter.identifier}_{description.key}"
+        # Keep the room once in entity IDs, independently of HA's device prefix.
+        object_id = slugify(
+            f"{meter.reading.room or 'Raum unbekannt'} {meter.service} "
+            f"{meter.reading.device_number} {description.name}"
+        )
+        self.entity_id = f"sensor.{object_id}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, meter.identifier)},
-            name=f"{meter.service} {meter.reading.device_number}",
+            name=f"{meter.service} {meter.reading.room or 'Raum unbekannt'} {meter.reading.device_number}",
             serial_number=meter.reading.device_number, suggested_area=meter.reading.room,
         )
         if description.key in {"consumption", "evaluated_consumption"}:
