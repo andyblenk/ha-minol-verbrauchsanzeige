@@ -1,0 +1,14 @@
+{
+  "domain": "minol_portal",
+  "name": "Minol Verbrauchsanzeige",
+  "version": "0.3.0",
+  "documentation": "https://github.com/andyblenk/ha-minol-verbrauchsanzeige",
+  "codeowners": [
+    "@andyblenk"
+  ],
+  "config_flow": true,
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "issue_tracker": "https://github.com/andyblenk/ha-minol-verbrauchsanzeige/issues"
+}

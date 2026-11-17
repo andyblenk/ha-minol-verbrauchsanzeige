@@ -1,0 +1,37 @@
+{
+  "title": "Minol Verbrauchsanzeige",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Minol-Portal verbinden",
+        "description": "Mit den Zugangsdaten des Minol-Portals anmelden. Bei genau einer Wohnung die Nutzereinheiten-ID leer lassen. Bei mehreren Wohnungen die API-userNumber angeben; sie ist nicht die Kundennummer oder die angezeigte Einheitsnummer. Die Anmeldung kann etwas dauern.",
+        "data": {
+          "email": "E-Mail / Anmeldekennung",
+          "password": "Passwort",
+          "tenant_number": "Nutzereinheiten-ID (optional)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Die Anmeldung wurde abgewiesen.",
+      "cannot_connect": "Die Portaldaten konnten nicht geladen oder eindeutig zugeordnet werden.",
+      "invalid_selection": "Keine eindeutige Nutzereinheit. Bitte die API-userNumber angeben; sie ist nicht unbedingt die Kundennummer oder die angezeigte Einheitsnummer."
+    },
+    "abort": {
+      "already_configured": "Diese Nutzereinheit ist bereits eingerichtet.",
+      "reauth_successful": "Die Anmeldung wurde aktualisiert.",
+      "wrong_account": "Diese Anmeldung gehört nicht zur eingerichteten Nutzereinheit."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Datenabruf",
+        "description": "Bei jedem Abruf werden der aktuelle Monat und die elf vorherigen Monate einzeln gelesen. Alle gespeicherten Monate bleiben erhalten; bekannte Monate werden aktualisiert. Gesamtverbrauch und Rohverbrauch gesamt werden aus allen gespeicherten Monatswerten gebildet.",
+        "data": {
+          "refresh_hours": "Abrufintervall in Stunden (1–168)"
+        }
+      }
+    }
+  }
+}

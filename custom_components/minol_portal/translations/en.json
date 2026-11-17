@@ -1,0 +1,37 @@
+{
+  "title": "Minol Verbrauchsanzeige",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to the Minol portal",
+        "description": "Enter your Minol portal credentials. Leave the dwelling ID blank if your account contains only one dwelling. For multiple dwellings, enter the portal userNumber, not the customer number or the displayed unit number. Signing in may take a little while.",
+        "data": {
+          "email": "Email / login",
+          "password": "Password",
+          "tenant_number": "Dwelling ID (optional)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "The credentials were rejected.",
+      "cannot_connect": "The portal data could not be loaded or assigned unambiguously.",
+      "invalid_selection": "The dwelling could not be selected unambiguously. Enter the portal userNumber; this may differ from the customer number and displayed unit number."
+    },
+    "abort": {
+      "already_configured": "This dwelling is already configured.",
+      "reauth_successful": "The credentials have been updated.",
+      "wrong_account": "These credentials do not belong to the configured dwelling."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Data retrieval",
+        "description": "Each refresh reads the current month and the preceding eleven months separately. Previously stored months are retained and fetched months are updated. Total consumption and total raw consumption are calculated from all stored monthly values.",
+        "data": {
+          "refresh_hours": "Refresh interval in hours (1–168)"
+        }
+      }
+    }
+  }
+}
