@@ -53,7 +53,7 @@ Weitere Hilfe: [Benutzerdefinierte Repositories in HACS](https://www.hacs.xyz/do
 2. **Minol Verbrauchsanzeige** auswählen.
 3. E-Mail-Adresse beziehungsweise Anmeldekennung und Passwort des Minol-Portals eingeben und absenden.
 
-**Bei genau einer Wohnung bleibt die Nutzereinheiten-ID leer.** Bei mehreren Wohnungen ist die passende `userNumber` des Portals erforderlich. Sie kann von der Kundennummer und der sichtbaren Einheitsnummer abweichen. Nach der Einrichtung wird sie auch unter **Stammdaten** angezeigt.
+**Bei genau einer Wohnung bleibt die Nutzereinheiten-ID leer.** Bei mehreren Wohnungen ist die passende Nutzereinheiten-ID erforderlich. Nach der Einrichtung wird sie auch unter **Stammdaten** angezeigt.
 
 Die Einrichtung erhält automatisch einen Namen im Format **Einheit <Nummer> - <Straße Hausnummer>, <Ort>**. Du kannst ihn in Home Assistant ändern, ohne die Zuordnung der Geräte oder ihrer Monatsdaten zu verändern. Weitere Wohnungen werden als zusätzliche Einträge eingerichtet.
 
