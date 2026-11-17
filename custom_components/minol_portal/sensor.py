@@ -94,7 +94,7 @@ class MinolMeterSensor(CoordinatorEntity, SensorEntity):
         self._attr_unique_id = f"{meter.identifier}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, meter.identifier)},
-            name=f"{meter.service} {meter.reading.room or 'Raum unbekannt'} {meter.reading.device_number}",
+            name=f"{meter.service} {meter.reading.device_number}",
             serial_number=meter.reading.device_number, suggested_area=meter.reading.room,
         )
         if description.key in {"consumption", "evaluated_consumption"}:
