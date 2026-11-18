@@ -5,6 +5,14 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-11-18
+
+### Behoben
+
+- Abgelaufene Portal-Sitzungen auch erkennen, wenn die HTML-Anmeldeseite mit
+  einem Skript beginnt. Der Datenabruf meldet sich dann automatisch erneut an.
+- Bei Portalfehlern die konkrete, bereinigte Fehlerursache im HA-Protokoll anzeigen.
+
 ## [0.3.1] - 2026-11-17
 
 ### Hinzugefügt
@@ -24,5 +32,6 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Deutsche und englische Einrichtungs- und Optionsdialoge.
 - Deutsche Dokumentation und MIT-Lizenz.
 
-[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/releases/tag/v0.3.1

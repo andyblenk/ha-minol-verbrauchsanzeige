@@ -42,5 +42,7 @@ class MinolCoordinator(DataUpdateCoordinator[MinolData]):
             return MinolData(snapshot, meters)
         except AuthenticationError as error:
             raise ConfigEntryAuthFailed("Die Minol-Anmeldung muss erneuert werden.") from error
-        except (PortalError, ValueError, OSError) as error:
+        except PortalError as error:
+            raise UpdateFailed(f"Minol-Daten konnten nicht geladen werden: {error}") from error
+        except (ValueError, OSError) as error:
             raise UpdateFailed("Minol-Daten konnten nicht eindeutig geladen werden.") from error

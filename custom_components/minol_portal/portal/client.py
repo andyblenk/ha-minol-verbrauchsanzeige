@@ -37,7 +37,9 @@ class PortalClient:
             raise SelectionError("Das Portal hat diesen lesenden Datenabruf nicht freigegeben.")
         if reply.status != 200:
             raise ProtocolError(f"Der Portal-Datenabruf meldet HTTP {reply.status}.")
-        if reply.text.lstrip().lower().startswith(("<!doctype html", "<html")):
+        content_type = reply.headers.get("Content-Type", "").partition(";")[0].strip().lower()
+        if (content_type in {"text/html", "application/xhtml+xml"}
+                or reply.text.lstrip().lower().startswith(("<!doctype html", "<html"))):
             raise SessionExpired("Die Portal-Sitzung ist abgelaufen oder eine erneute Anmeldung wird verlangt.")
         try:
             return json.loads(reply.text)
