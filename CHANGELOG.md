@@ -5,6 +5,12 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [0.3.4] - 2026-11-19
+
+### Hinzugefügt
+
+- Deutschland (`DE`) als unterstütztes Land in den HACS-Metadaten angegeben.
+
 ## [0.3.3] - 2026-11-19
 
 ### Hinzugefügt
@@ -42,7 +48,8 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Deutsche und englische Einrichtungs- und Optionsdialoge.
 - Deutsche Dokumentation und MIT-Lizenz.
 
-[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.4...HEAD
+[0.3.4]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/releases/tag/v0.3.1
