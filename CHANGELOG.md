@@ -5,6 +5,16 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-11-19
+
+### Hinzugefügt
+
+- Automatische HACS- und Hassfest-Prüfungen über GitHub Actions.
+
+### Behoben
+
+- Manifest-Schlüssel in die von Hassfest geforderte Reihenfolge gebracht.
+
 ## [0.3.2] - 2026-11-18
 
 ### Behoben
@@ -32,6 +42,7 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Deutsche und englische Einrichtungs- und Optionsdialoge.
 - Deutsche Dokumentation und MIT-Lizenz.
 
-[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/releases/tag/v0.3.1
