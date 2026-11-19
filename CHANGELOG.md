@@ -5,6 +5,15 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [0.3.5] - 2026-11-19
+
+### Geändert
+
+- HACS und Home Assistant Marketplace laden die Integration als eigenes
+  ZIP-Paket für Installationen und Updates herunter.
+- GitHub Actions erstellt beim Push eines Versions-Tags automatisch einen
+  Release-Entwurf mit geprüftem ZIP-Paket.
+
 ## [0.3.4] - 2026-11-19
 
 ### Hinzugefügt
@@ -48,7 +57,8 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Deutsche und englische Einrichtungs- und Optionsdialoge.
 - Deutsche Dokumentation und MIT-Lizenz.
 
-[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.4...HEAD
+[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.5...HEAD
+[0.3.5]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.1...v0.3.2

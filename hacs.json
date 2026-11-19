@@ -1,5 +1,7 @@
 {
   "name": "Minol Verbrauchsanzeige",
   "homeassistant": "2026.9.4",
-  "country": "DE"
+  "country": "DE",
+  "zip_release": true,
+  "filename": "minol_verbrauchsanzeige.zip"
 }
