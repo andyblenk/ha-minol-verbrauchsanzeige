@@ -5,6 +5,18 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-11-20
+
+### Hinzugefügt
+
+- Screenshot der Geräteansicht in Home Assistant mit
+  Verbrauchssensoren und Diagnosedaten.
+
+### Geändert
+
+- Installationsanleitung für den direkten Download aus dem HACS-Katalog
+  vereinfacht.
+
 ## [0.3.5] - 2026-11-19
 
 ### Geändert
@@ -57,7 +69,8 @@ Das Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Deutsche und englische Einrichtungs- und Optionsdialoge.
 - Deutsche Dokumentation und MIT-Lizenz.
 
-[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.5...HEAD
+[Unreleased]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.6...HEAD
+[0.3.6]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/andyblenk/ha-minol-verbrauchsanzeige/compare/v0.3.2...v0.3.3
