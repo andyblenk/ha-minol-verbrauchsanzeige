@@ -8,6 +8,12 @@ Die Integration erkennt die für deine Wohnung verfügbaren Messgeräte, zeigt i
 
 Die Daten stammen aus dem Minol-Portal. Ihre Aktualität richtet sich nach der Veröffentlichung durch Minol; die Integration liest die Zähler nicht direkt aus.
 
+## Geräteansicht in Home Assistant
+
+Die Geräteansicht zeigt am Beispiel eines Heizkostenverteilers den Gesamtverbrauch, die letzte Ablesung und den Bewertungsfaktor. Unter **Diagnostic** stehen unter anderem der Berichtsmonat und der Zeitpunkt des letzten erfolgreichen Abrufs.
+
+![Geräteansicht eines Heizkostenverteilers in Home Assistant mit Verbrauchssensoren und Diagnosedaten](docs/images/minol-geraeteansicht.png)
+
 ## Entwicklung unterstützen
 
 Wenn dir die Integration gefällt oder sie dir im Alltag hilft, freue ich mich über deine Unterstützung.

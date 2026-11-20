@@ -1,6 +1,7 @@
 # Lokale Konfiguration, Zugangsdaten und generierte Dateien ausschließen.
 /.secrets/
 /.local/
+/local/
 /config/
 __pycache__/
 *.py[cod]
