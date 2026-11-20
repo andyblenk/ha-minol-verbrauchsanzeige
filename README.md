@@ -34,18 +34,8 @@ Wenn dir die Integration gefällt oder sie dir im Alltag hilft, freue ich mich �
 ## Installation über HACS
 
 1. **HACS** öffnen.
-2. Oben rechts im **Drei-Punkte-Menü** den Eintrag **Benutzerdefinierte Repositories** auswählen.
-3. Diese Repository-URL eintragen:
-
-   ```text
-   https://github.com/andyblenk/ha-minol-verbrauchsanzeige
-   ```
-
-4. Als Kategorie **Integration** auswählen und auf **Hinzufügen** klicken.
-5. In HACS nach **Minol Verbrauchsanzeige** suchen und die Integration **herunterladen**.
-6. **Home Assistant neu starten.**
-
-Weitere Hilfe: [Benutzerdefinierte Repositories in HACS](https://www.hacs.xyz/docs/faq/custom_repositories/).
+2. Nach **Minol Verbrauchsanzeige** suchen und die Integration **herunterladen**.
+3. **Home Assistant neu starten.**
 
 ## Einrichtung
 
